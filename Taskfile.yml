@@ -1,0 +1,51 @@
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task: start-repo
+      - task: clean
+      - task: mod
+      - task: vet
+      - task: lint
+      - task: test
+
+  install:
+    desc: install
+    cmds:
+      - go install
+
+  build:
+    desc: Build the go binary.
+    cmds:
+      - go build -v -i main.go
+
+  clean:
+    desc: Run go-critic as linter on all folders.
+    cmds:
+      - go clean -r -i -cache -testcache -modcache
+
+  vet:
+    desc: Run go-critic as linter on all folders.
+    cmds:
+      - go vet ./...
+
+  mod:
+    desc: Run go-critic as linter on all folders.
+    cmds:
+      - go mod tidy
+
+  lint:
+    desc: Run go-critic as linter on all folders.
+    cmds:
+      - golangci-lint run
+
+  fmt:
+    desc: Run go-critic as linter on all folders.
+    cmds:
+      - go fmt ./...
+
+  test:
+    desc: Run all the go tests.
+    cmds:
+      - go test -race ./...
